@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LeadForge — Automated Lead Generation for Middle East Agencies</title>
+<meta name="description" content="LeadForge builds and runs a fully automated outreach system that finds, qualifies, and delivers ready-to-talk leads to your inbox every day. Serving the Middle East — headquartered in Dubai.">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --blue-dark: #0A1628;
+    --blue-mid: #0E2040;
+    --blue-bright: #1557FF;
+    --blue-light: #4F86FF;
+    --blue-glow: rgba(21,87,255,0.15);
+    --red: #FF3D5A;
+    --red-dark: #CC2040;
+    --white: #FFFFFF;
+    --white-70: rgba(255,255,255,0.7);
+    --white-30: rgba(255,255,255,0.3);
+    --white-10: rgba(255,255,255,0.08);
+    --white-5: rgba(255,255,255,0.04);
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--blue-dark);
+    color: var(--white);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+    line-height: 1.6;
+  }
+  h1,h2,h3,h4 { font-family: 'Syne', sans-serif; line-height: 1.1; }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.25rem 4rem;
+    background: rgba(10,22,40,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--white-10);
+  }
+  .nav-logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800; font-size: 1.35rem;
+    letter-spacing: -0.02em;
+    color: var(--white);
+    text-decoration: none;
+  }
+  .nav-logo span { color: var(--red); }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a { color: var(--white-70); text-decoration: none; font-size: 0.9rem; font-weight: 400; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--white); }
+  .nav-cta {
+    background: var(--red); color: var(--white);
+    padding: 0.6rem 1.4rem; border-radius: 6px;
+    font-family: 'Syne', sans-serif; font-weight: 600; font-size: 0.85rem;
+    text-decoration: none; letter-spacing: 0.01em;
+    transition: background 0.2s, transform 0.15s;
+  }
+  .nav-cta:hover { background: var(--red-dark); transform: translateY(-1px); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    text-align: center;
+    padding: 8rem 2rem 5rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute; inset: 0; z-index: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 50% 0%, rgba(21,87,255,0.18) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 40% at 80% 80%, rgba(255,61,90,0.08) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 60% at 20% 60%, rgba(21,87,255,0.06) 0%, transparent 60%);
+  }
+  .hero-grid {
+    position: absolute; inset: 0; z-index: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: radial-gradient(ellipse 80% 80% at 50% 30%, black 0%, transparent 100%);
+    -webkit-mask-image: radial-gradient(ellipse 80% 80% at 50% 30%, black 0%, transparent 100%);
+  }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--white-10); border: 1px solid var(--white-10);
+    padding: 0.4rem 1rem; border-radius: 99px;
+    font-size: 0.78rem; font-weight: 500; letter-spacing: 0.04em;
+    color: var(--white-70); text-transform: uppercase;
+    margin-bottom: 2rem; position: relative; z-index: 1;
+    animation: fadeUp 0.6s ease both;
+  }
+  .hero-badge-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--red); animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(1.3)} }
+  .hero h1 {
+    font-size: clamp(2.8rem, 6vw, 5.5rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1.0;
+    max-width: 900px;
+    position: relative; z-index: 1;
+    animation: fadeUp 0.6s 0.1s ease both;
+  }
+  .hero h1 .accent { color: var(--red); }
+  .hero-sub {
+    font-size: clamp(1rem, 2vw, 1.2rem);
+    color: var(--white-70);
+    max-width: 560px;
+    margin: 1.5rem auto 0;
+    font-weight: 300;
+    position: relative; z-index: 1;
+    animation: fadeUp 0.6s 0.2s ease both;
+  }
+  .hero-actions {
+    display: flex; gap: 1rem; align-items: center; justify-content: center;
+    margin-top: 2.5rem;
+    position: relative; z-index: 1;
+    animation: fadeUp 0.6s 0.3s ease both;
+    flex-wrap: wrap;
+  }
+  .btn-primary {
+    background: var(--red); color: var(--white);
+    padding: 0.9rem 2rem; border-radius: 8px;
+    font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.95rem;
+    text-decoration: none; letter-spacing: 0.01em;
+    transition: all 0.2s;
+    box-shadow: 0 0 30px rgba(255,61,90,0.3);
+  }
+  .btn-primary:hover { background: var(--red-dark); transform: translateY(-2px); box-shadow: 0 0 40px rgba(255,61,90,0.4); }
+  .btn-secondary {
+    color: var(--white-70); font-size: 0.9rem;
+    text-decoration: none; display: flex; align-items: center; gap: 6px;
+    transition: color 0.2s;
+  }
+  .btn-secondary:hover { color: var(--white); }
+  .hero-stats {
+    display: flex; gap: 3rem; margin-top: 4rem;
+    position: relative; z-index: 1;
+    animation: fadeUp 0.6s 0.4s ease both;
+    flex-wrap: wrap; justify-content: center;
+  }
+  .stat { text-align: center; }
+  .stat-num { font-family: 'Syne', sans-serif; font-size: 2rem; font-weight: 800; color: var(--white); }
+  .stat-num span { color: var(--red); }
+  .stat-label { font-size: 0.8rem; color: var(--white-70); margin-top: 2px; text-transform: uppercase; letter-spacing: 0.06em; }
+
+  .scroll-line {
+    position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%);
+    display: flex; flex-direction: column; align-items: center; gap: 6px;
+    color: var(--white-30); font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase;
+    z-index: 1; animation: fadeUp 0.6s 0.6s ease both;
+  }
+  .scroll-line::after {
+    content: ''; width: 1px; height: 40px;
+    background: linear-gradient(to bottom, var(--white-30), transparent);
+    animation: scrollPulse 2s infinite;
+  }
+  @keyframes scrollPulse { 0%,100%{opacity:0.3} 50%{opacity:1} }
+
+  section { padding: 6rem 4rem; position: relative; }
+  .section-label {
+    font-size: 0.75rem; font-weight: 500; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--red);
+    margin-bottom: 1rem; display: block;
+  }
+  .section-title {
+    font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+    font-weight: 800; letter-spacing: -0.02em;
+    max-width: 700px; line-height: 1.1;
+  }
+  .section-body {
+    font-size: 1rem; color: var(--white-70);
+    max-width: 540px; margin-top: 1rem; line-height: 1.7;
+  }
+  .container { max-width: 1100px; margin: 0 auto; }
+  .h-line { width: 48px; height: 2px; background: var(--red); margin: 1.5rem 0; }
+
+  /* HOW IT WORKS */
+  .how { background: var(--blue-mid); }
+  .steps {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(200px,1fr));
+    gap: 1px; margin-top: 3rem;
+    background: var(--white-10); border-radius: 16px; overflow: hidden;
+    border: 1px solid var(--white-10);
+  }
+  .step { background: var(--blue-mid); padding: 2rem 1.75rem; position: relative; transition: background 0.2s; }
+  .step:hover { background: rgba(14,32,64,0.9); }
+  .step-num {
+    font-family: 'Syne', sans-serif; font-size: 3rem; font-weight: 800;
+    line-height: 1; margin-bottom: 1rem;
+    position: absolute; top: 1.5rem; right: 1.5rem;
+    background: linear-gradient(135deg, var(--white-10), transparent);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .step-icon { font-size: 1.5rem; margin-bottom: 0.75rem; }
+  .step h4 { font-size: 1rem; font-weight: 700; margin-bottom: 0.5rem; letter-spacing: -0.01em; }
+  .step p { font-size: 0.85rem; color: var(--white-70); line-height: 1.6; }
+
+  /* FEATURES */
+  .features-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(300px,1fr));
+    gap: 1.5rem; margin-top: 3rem;
+  }
+  .feature {
+    background: var(--white-5); border: 1px solid var(--white-10);
+    border-radius: 12px; padding: 1.75rem;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .feature:hover { border-color: rgba(21,87,255,0.4); transform: translateY(-3px); }
+  .feature-icon {
+    width: 42px; height: 42px; border-radius: 10px;
+    background: var(--blue-glow); border: 1px solid rgba(21,87,255,0.3);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem; margin-bottom: 1rem;
+  }
+  .feature h4 { font-size: 1rem; font-weight: 700; margin-bottom: 0.5rem; }
+  .feature p { font-size: 0.85rem; color: var(--white-70); line-height: 1.6; }
+
+  /* PRICING */
+  .pricing { background: var(--blue-mid); }
+  .pricing-wrap {
+    max-width: 480px;
+    margin-top: 3rem;
+  }
+  .price-card {
+    background: var(--white-5); border: 1px solid var(--white-10);
+    border-radius: 16px; padding: 2.5rem;
+    transition: transform 0.2s;
+  }
+  .price-card:hover { transform: translateY(-4px); }
+  .price-tier { font-size: 0.75rem; font-weight: 500; color: var(--white-70); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.5rem; }
+  .price-amount { font-family: 'Syne', sans-serif; font-size: 3rem; font-weight: 800; letter-spacing: -0.03em; }
+  .price-amount span { font-size: 1rem; font-weight: 400; color: var(--white-70); }
+  .price-setup { font-size: 0.85rem; color: var(--white-70); margin-top: 6px; margin-bottom: 2rem; padding-bottom: 2rem; border-bottom: 1px solid var(--white-10); }
+  .price-setup strong { color: var(--white); }
+  .price-items { list-style: none; display: flex; flex-direction: column; gap: 0.75rem; margin-bottom: 2rem; }
+  .price-items li { font-size: 0.9rem; color: var(--white-70); display: flex; align-items: flex-start; gap: 10px; line-height: 1.4; }
+  .price-items li::before { content: '→'; color: var(--blue-light); font-size: 0.85rem; flex-shrink: 0; margin-top: 1px; }
+  .price-cta {
+    display: block; text-align: center;
+    background: var(--red); color: var(--white);
+    padding: 1rem; border-radius: 8px;
+    font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.95rem;
+    text-decoration: none; transition: background 0.2s, transform 0.15s;
+    box-shadow: 0 0 24px rgba(255,61,90,0.25);
+  }
+  .price-cta:hover { background: var(--red-dark); transform: translateY(-1px); }
+  .price-note { font-size: 0.78rem; color: var(--white-30); text-align: center; margin-top: 1rem; }
+
+  /* WHO IT'S FOR */
+  .icp-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(160px,1fr));
+    gap: 1rem; margin-top: 2.5rem;
+  }
+  .icp-item {
+    background: var(--white-5); border: 1px solid var(--white-10);
+    border-radius: 10px; padding: 1.25rem;
+    text-align: center; transition: border-color 0.2s;
+  }
+  .icp-item:hover { border-color: rgba(255,61,90,0.3); }
+  .icp-icon { font-size: 1.5rem; margin-bottom: 0.5rem; }
+  .icp-item p { font-size: 0.82rem; color: var(--white-70); line-height: 1.4; }
+
+  /* CTA */
+  .cta-section {
+    text-align: center; padding: 7rem 4rem;
+    background: linear-gradient(135deg, rgba(21,87,255,0.12) 0%, rgba(10,22,40,0) 60%, rgba(255,61,90,0.08) 100%);
+    border-top: 1px solid var(--white-10);
+  }
+  .cta-section h2 { font-size: clamp(2rem, 4vw, 3.5rem); font-weight: 800; letter-spacing: -0.03em; max-width: 700px; margin: 0 auto; }
+  .cta-section p { color: var(--white-70); margin: 1.25rem auto 2.5rem; max-width: 480px; font-size: 1rem; }
+
+  /* FOOTER */
+  footer {
+    background: var(--blue-dark); border-top: 1px solid var(--white-10);
+    padding: 2rem 4rem; display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 1rem;
+  }
+  footer .logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1rem; }
+  footer .logo span { color: var(--red); }
+  footer p { font-size: 0.8rem; color: var(--white-30); }
+
+  @keyframes fadeUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+  .fade-up { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+  @media(max-width:768px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    section { padding: 4rem 1.5rem; }
+    .hero { padding: 6rem 1.5rem 4rem; }
+    .hero-stats { gap: 1.5rem; }
+    footer { padding: 1.5rem; flex-direction: column; text-align: center; }
+    .cta-section { padding: 5rem 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="nav-logo">Lead<span>Forge</span></a>
+  <ul class="nav-links">
+    <li><a href="#how">How it works</a></li>
+    <li><a href="#features">What you get</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+    <li><a href="#who">Who it's for</a></li>
+  </ul>
+  <a href="#book" class="nav-cta">Book a Call</a>
+</nav>
+
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-badge">
+    <span class="hero-badge-dot"></span>
+    Now taking clients across the Middle East
+  </div>
+  <h1>Your agency deserves a<br><span class="accent">full-time</span> lead machine</h1>
+  <p class="hero-sub">LeadForge builds and runs a fully automated outreach system that finds, qualifies, and delivers ready-to-talk leads to your inbox — every single day.</p>
+  <div class="hero-actions">
+    <a href="#book" class="btn-primary">Book a Free Discovery Call →</a>
+    <a href="#how" class="btn-secondary">See how it works ↓</a>
+  </div>
+  <div class="hero-stats">
+    <div class="stat"><div class="stat-num">30<span>+</span></div><div class="stat-label">Leads sourced daily</div></div>
+    <div class="stat"><div class="stat-num">100<span>%</span></div><div class="stat-label">Done for you</div></div>
+    <div class="stat"><div class="stat-num">14</div><div class="stat-label">Days to go live</div></div>
+    <div class="stat"><div class="stat-num">0</div><div class="stat-label">Hours of your time</div></div>
+  </div>
+  <div class="scroll-line">scroll</div>
+</section>
+
+<section class="how" id="how">
+  <div class="container">
+    <span class="section-label fade-up">How it works</span>
+    <h2 class="section-title fade-up">Five automated systems working while you sleep</h2>
+    <div class="h-line fade-up"></div>
+    <div class="steps fade-up">
+      <div class="step">
+        <div class="step-num">01</div>
+        <div class="step-icon">🎯</div>
+        <h4>The Hunter</h4>
+        <p>Finds 30+ decision-makers at your ideal companies every single day using verified data.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <div class="step-icon">⚡</div>
+        <h4>The Qualifier</h4>
+        <p>AI scores every lead, verifies emails, and writes a unique personalised opening line for each prospect.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <div class="step-icon">✉️</div>
+        <h4>The Outreacher</h4>
+        <p>Sends personalised cold emails automatically and follows up on a set schedule until they reply.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">04</div>
+        <div class="step-icon">🔔</div>
+        <h4>The Listener</h4>
+        <p>Monitors every reply with AI and classifies them instantly — interested, not interested, or out of office.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">05</div>
+        <div class="step-icon">📊</div>
+        <h4>The Reporter</h4>
+        <p>Every week you receive a clean performance summary — contacts sent, reply rate, and hot leads.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="features">
+  <div class="container">
+    <span class="section-label fade-up">What you get</span>
+    <h2 class="section-title fade-up">Everything built, configured, and running for you</h2>
+    <p class="section-body fade-up">We don't hand you a tool and wish you luck. We build your entire outreach infrastructure from scratch, tailored to your ICP, and run it every day.</p>
+    <div class="features-grid fade-up">
+      <div class="feature">
+        <div class="feature-icon">🗂️</div>
+        <h4>Custom prospect lists daily</h4>
+        <p>Apollo-sourced, verified prospects matching your exact target market — refreshed every morning automatically.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">✍️</div>
+        <h4>AI-personalised outreach</h4>
+        <p>Every email opens with a line written specifically for that prospect based on their role and company — never a generic template.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">🔁</div>
+        <h4>Automated follow-up sequences</h4>
+        <p>Three-touch sequences run on autopilot. No lead ever falls through the cracks because you forgot to follow up.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">🤖</div>
+        <h4>AI reply classification</h4>
+        <p>Every reply is read and classified by AI the moment it arrives — interested, not interested, or out of office. You only deal with hot leads.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">📈</div>
+        <h4>Live pipeline dashboard</h4>
+        <p>A real-time view of every prospect, every reply, and every hot lead — always up to date, always accessible.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">📋</div>
+        <h4>Weekly performance reports</h4>
+        <p>Every week you receive a clean summary — total contacts, reply rate, interested leads, and what's working.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="pricing" id="pricing">
+  <div class="container">
+    <span class="section-label fade-up">Pricing</span>
+    <h2 class="section-title fade-up">One plan. Everything included.</h2>
+    <p class="section-body fade-up">One-time setup fee to build your system. Monthly retainer to keep it running, optimised, and delivering.</p>
+    <div class="pricing-wrap fade-up">
+      <div class="price-card">
+        <div class="price-tier">Standard Plan</div>
+        <div class="price-amount">$1,500 <span>/ month</span></div>
+        <div class="price-setup"><strong>+ $1,500 one-time setup</strong> — live in 14 days</div>
+        <ul class="price-items">
+          <li>30+ verified prospects sourced daily</li>
+          <li>AI scoring and email verification on every lead</li>
+          <li>Unique AI-written personalised opening line per prospect</li>
+          <li>Automated 3-email outreach sequence</li>
+          <li>AI reply monitoring and classification</li>
+          <li>Live pipeline dashboard — updated in real time</li>
+          <li>Weekly performance report every Monday</li>
+          <li>Monthly optimisation call</li>
+        </ul>
+        <a href="https://cal.com/ali-s-kdb8fl" class="price-cta">Book a Free Discovery Call →</a>
+        <p class="price-note">No long-term contracts. Cancel anytime.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="who">
+  <div class="container">
+    <span class="section-label fade-up">Who it's for</span>
+    <h2 class="section-title fade-up">Built for Middle East businesses that need a consistent flow of qualified leads</h2>
+    <div class="icp-grid fade-up">
+      <div class="icp-item"><div class="icp-icon">📣</div><p>Digital Marketing Agencies</p></div>
+      <div class="icp-item"><div class="icp-icon">📱</div><p>Social Media Agencies</p></div>
+      <div class="icp-item"><div class="icp-icon">🏢</div><p>Real Estate Brokers</p></div>
+      <div class="icp-item"><div class="icp-icon">👥</div><p>Recruitment Firms</p></div>
+      <div class="icp-item"><div class="icp-icon">💆</div><p>Medspas &amp; Clinics</p></div>
+      <div class="icp-item"><div class="icp-icon">🎓</div><p>Training &amp; Education</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-section" id="book">
+  <h2 class="fade-up">Ready to stop chasing leads<br>and start <span style="color:var(--red)">receiving</span> them?</h2>
+  <p class="fade-up">Book a free 30-minute discovery call. We'll show you exactly how the system works and whether it's the right fit for your business.</p>
+  <a href="https://cal.com/ali-s-kdb8fl" class="btn-primary fade-up" style="display:inline-block">Book Your Free Call →</a>
+</section>
+
+<footer>
+  <div class="logo">Lead<span>Forge</span></div>
+  <p>© 2026 LeadForge. Dubai — serving the Middle East.</p>
+  <p>ali@leadforgedubai.com</p>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
